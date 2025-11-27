@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 // // Cores
 const corTexto = '#1E1E1E';
-const corTextoClaro = '#FFFFFF';
+const corTextoClaro = '#F2F2F2';
 const corTextoCinza = '#6D6D6D';
 const corPrimaria = '#017BC8';
 const corSecundaria = '#DAF1FF';
@@ -67,30 +67,30 @@ export default StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     marginBottom: 30
-  }
+  },
 //   // Barra de Navegação
-//   tabBar: {
-//     backgroundColor: corPrimaria,
-//     height: 60,
-//     borderTopWidth: 0,
-//     paddingTop: 9
-//   },
-//   iconContainer: {
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   activeIconContainer: {
-//     backgroundColor: corPrimaria,
-//     borderRadius: 50,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     marginTop: -50,
-//     width: 65,
-//     height: 65,
-//     borderWidth: 5,
-//     borderColor: corBG,
-//   },
-//   // Tela Home
+  tabBar: {
+    backgroundColor: corPrimaria,
+    height: 60,
+    borderTopWidth: 0,
+    paddingTop: 9
+  },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  activeIconContainer: {
+    backgroundColor: corPrimaria,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: -50,
+    width: 65,
+    height: 65,
+    borderWidth: 5,
+    borderColor: corTextoClaro
+  },
+  // Tela Home
 //   container: {
 //     backgroundColor: corBG,
 //     padding: 20,
