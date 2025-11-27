@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TextInput, Alert, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Alert, Image, TouchableOpacity, Linking  } from 'react-native';
 import styles from '../style/style.js';
 
 export default function Login({ navigation }) {
@@ -11,6 +11,10 @@ export default function Login({ navigation }) {
     } else {
       Alert.alert('Autenticação', 'As informações fornecidas estão incorretas.');
     }
+  };
+
+  const ligar = () => {
+    Linking.openURL('tel: 0800 013 2992');
   };
 
   return (
@@ -35,7 +39,7 @@ export default function Login({ navigation }) {
       </View>
       <View style={styles.contatoLogin}>
         <Text style={styles.texto}>Central de relacionamento</Text>
-        <Text style={styles.negrito}>0800 013 2992</Text>
+        <Text style={styles.negrito} onPress={ligar}>0800 013 2992</Text>
       </View>
     </View>
   );
