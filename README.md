@@ -74,24 +74,25 @@ O app incentiva o bem-estar através de gamificação, com pontos, ranking e loj
     ```
     npm i
     ```
-- Instale o expo (opcional, pode usar npx também):
+- Garantir compatibilidade com Expo:
     ```
-    npm install -g expo-cli
+    npx expo install expo
+    npx expo install react-native
+    npx expo install react react-dom
     ```
-- Conferir e instalar bibliotecas necessárias (caso não tenha instalado o expo, precisa usar npx)
+- Conferir e instalar bibliotecas necessárias
     ```
-    expo install @react-native-picker/picker
-    expo install expo-image-picker
-    expo install @expo/vector-icons
-    expo install @react-navigation/native
-    expo install @react-navigation/native-stack
-    expo install @react-navigation/bottom-tabs
-    expo install react-native-screens react-native-safe-area-context
-    expo install react-native-webview
+    npx expo install react-native-screens react-native-safe-area-context
+    npx expo install react-native-reanimated
+    npx expo install @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs
+    npx expo install expo-image-picker
+    npx expo install @expo/vector-icons
+    npx expo install @expo-google-fonts/montserrat expo-font
+    npx expo install react-native-webview
     ```
-- Inicie o projeto com Expo:
+- Inicie o projeto com cache limpo:
     ```
-    npx expo start
+    npx expo start -c
     ```
 - Escaneie o QR Code com o aplicativo Expo Go no celular.
 
