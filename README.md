@@ -67,16 +67,28 @@ O app incentiva o bem-estar através de gamificação, com pontos, ranking e loj
 ## ⚙️ Instalação e execução
 - Clone este repositório:
     ```
-    https://github.com/CavMCarolina/gsMobile.git
+    git clone https://github.com/CavMCarolina/Challenge-Mobile.git
+    cd Challenge-Mobile
     ```
 - Instale as dependências:
     ```
-    npm install
+    npm i
     ```
-- Instale pacotes adicionais caso precise:
+- Instale o expo (opcional, pode usar npx também):
     ```
-    expo install @react-native-picker/picker expo-image-picker @expo/vector-icons expo-font @expo-google-fonts/montserrat
-    ````
+    npm install -g expo-cli
+    ```
+- Conferir e instalar bibliotecas necessárias (caso não tenha instalado o expo, precisa usar npx)
+    ```
+    expo install @react-native-picker/picker
+    expo install expo-image-picker
+    expo install @expo/vector-icons
+    expo install @react-navigation/native
+    expo install @react-navigation/native-stack
+    expo install @react-navigation/bottom-tabs
+    expo install react-native-screens react-native-safe-area-context
+    expo install react-native-webview
+    ```
 - Inicie o projeto com Expo:
     ```
     npx expo start
