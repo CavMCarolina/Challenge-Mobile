@@ -1,4 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
+import WebViewScreen from './navigation/WebViewScreen.js';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TabNavigator from './navigation/TabNavigation.js';
 import Login from './components/Login.js';
@@ -35,6 +36,11 @@ export default function App() {
           // Ao entrar, redireciona para a navegação Tab
           component={TabNavigator}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="WebViewScreen"
+          component={WebViewScreen}
+          options={{ title: 'Artigo' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

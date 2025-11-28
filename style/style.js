@@ -39,7 +39,8 @@ export default StyleSheet.create({
   },
   texto: {
     color: corTexto,
-    fontFamily: textoMedio
+    fontFamily: textoMedio,
+    fontSize: 14
   },
   input: {
     marginVertical: 8,
@@ -68,7 +69,7 @@ export default StyleSheet.create({
     gap: 10,
     marginBottom: 30
   },
-//   // Barra de Navegação
+  // Barra de Navegação
   tabBar: {
     backgroundColor: corPrimaria,
     height: 60,
@@ -91,133 +92,264 @@ export default StyleSheet.create({
     borderColor: corTextoClaro
   },
   // Tela Home
-//   container: {
-//     backgroundColor: corBG,
-//     padding: 20,
-//     paddingTop: 70
-//   },
-//   pickerContainer: {
-//     backgroundColor: corBG, 
-//     borderWidth: 1,  
-//     overflow: 'hidden', 
-//     borderColor: corPrimaria,
-//     borderRadius: 50,
-//     marginBottom: 20,
-//     paddingHorizontal: 30,
-//   },
-//   card: {
-//     backgroundColor: corTextoClaro,
-//     borderRadius: 12,
-//     padding: 15,
-//     marginBottom: 15,
-//     elevation: 10,
-//   },
-//   cardHeader: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center'
-//   },
-//   tituloRoxo: {
-//     fontSize: 20,
-//     fontFamily: textoNegrito,
-//     color: corPrimaria,
-//   },
-//   cardCarga: {
-//     fontSize: 14,
-//     fontFamily: textoNormal,
-//     color: corPrimaria,
-//   },
-//   cardDescricao: {
-//     fontSize: 16,
-//     fontFamily: textoNormal,
-//     color: corTextoEscuro,
-//     marginTop: 8,
-//     marginBottom: 20
-//   }, 
-//   // Tela Exercícios
-//   exercicioContainer: {
-//     alignItems: 'center'
-//   },
-//   bolinha: {
-//     width: 70,
-//     height: 70,
-//     borderRadius: 35,
-//     backgroundColor: corPrimaria,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     elevation: 10,
-//     marginBottom: 8
-//   },
-//   tituloBranco: {
-//     color: corTextoClaro,
-//     fontFamily: textoNegrito,
-//     fontSize: 20,
-//   },
-//   linha :{
-//     width: 4,
-//     height: 40,
-//     backgroundColor: corPrimaria,
-//     marginVertical: 30
-//   },
-//   // Tela Meus Cursos
-//   progressBar: {
-//     height: 12,
-//     backgroundColor: '#ccc',
-//     borderRadius: 6,
-//     marginTop: 12,
-//     overflow: 'hidden',
-//   },
-//   progressFill: {
-//     height: '100%',
-//     backgroundColor: corPrimaria,
-//   },
-//   botaoCertificado: {
-//     padding: 15,
-//     marginTop: 20,
-//     backgroundColor: '#9237fa', // cor diferente para destacar
-//     borderRadius: 5,
-//     alignItems: 'center',
-//   },
-//   // Tela Perfil
-//   perfilContainer: {
-//     alignItems: 'center',
-//     marginBottom: 30,
-//   },
-//   perfilImagem: {
-//     width: 200,
-//     height: 200,
-//     borderRadius: 100,
-//     borderWidth: 3,
-//     borderColor: corPrimaria,
-//     marginBottom: 15,
-//   },
-//   perfilEmail: {
-//     fontSize: 14,
-//     fontFamily: textoNormal,
-//     color: '#ccc',
-//     marginTop: 5,
-//   },
-//   statsContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     marginBottom: 30,
-//   },
-//   statBox: {
-//     alignItems: 'center',
-//   },
-//   badgesContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     marginVertical: 20,
-//   },
-//   badge: {
-//     alignItems: 'center',
-//   },
-//   badgeIcon: {
-//     fontSize: 28,
-//   },
-//   botoesContainer: {
-//     marginTop: 20,
-//     gap: 10
-//   }
+  container: {
+    padding: 40,
+    paddingTop: 70
+  },
+  titulo: {
+    fontFamily: textoMedio,
+    color: corPrimaria,
+    letterSpacing: 3,
+    fontSize: 22
+  },
+  pontosContainer: {
+    borderRadius: 10,
+    backgroundColor: corSecundaria,
+    marginVertical: 20,
+    paddingBottom: 30,
+    elevation: 10,
+    marginTop: 30
+  },
+  pontosHome: {
+    backgroundColor: 'white',
+    borderBottomRightRadius: 300,
+    borderBottomLeftRadius: 300,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    alignItems: 'center',
+    paddingVertical: 30,
+    gap: 5
+  },
+  pontosHomeTitulo: {
+    fontFamily: textoMedio,
+    color: corPrimaria,
+    fontSize: 20,
+    letterSpacing: 3,
+    textAlign: 'center'
+  },
+  lojaHome: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: 8
+  },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 15,
+    marginVertical: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3
+  },
+  subtitulo: {
+    color: corPrimaria,
+    fontSize: 16,
+    fontFamily: textoNormal
+  },
+  link: {
+    textDecorationLine: 'underline'
+  },
+  // Tela de Ranking
+  cardRankingUser: {
+    backgroundColor: corTextoClaro,
+    width: '100%',
+    flex: 1,
+    marginTop: 20,
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: -40
+  },
+  bolinhaRanking: {
+    width: 7,
+    height: 7,
+    borderWidth: 1.5,
+    borderColor: corPrimaria,
+    borderRadius: 10,
+    marginBottom: 7
+  },
+  posicaoRankingUser: {
+    borderRadius: 12,
+    paddingVertical: 50,
+    paddingHorizontal: 160,
+    borderWidth: 2,
+    borderColor: corPrimaria,
+    position: 'relative'
+  },
+  circle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: corPrimaria,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5
+  },
+  numeroRanking: {
+    color: corTextoClaro,
+    fontSize: 18,
+    fontFamily: textoNegrito,
+    letterSpacing: 2
+  },
+  infoRanking: {
+    marginLeft: 15,
+  },
+  // bem gambiarra para fazer a estilização que eu quero :)
+  bg: {
+    backgroundColor: corTextoClaro,
+    paddingHorizontal: 120,
+    paddingVertical: 5,
+    alignItems: 'center',
+    top: 20,
+    left: -90,
+    flex: 1,
+    flexDirection: 'row',
+    position: 'absolute'
+  },
+  nomeRanking: {
+    color: corPrimaria,
+    fontSize: 16,
+    fontFamily: textoMedio,
+    marginBottom: 3
+  },
+  pontosRanking: {
+    borderBottomWidth: 1,
+    borderColor: corPrimaria,
+    width: 130,
+    paddingBottom: 3
+  },
+  // Filtros
+  filtros: {
+    marginTop: 30,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 70
+  },
+  botaoFiltro: {
+    backgroundColor: corSecundaria,
+    borderRadius: 5,
+    elevation: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginBottom: 20
+  },
+  textoFiltro: {
+    fontFamily: textoMedio,
+    color: corPrimaria,
+    fontSize: 16,
+    letterSpacing: 2
+  },
+  botaoAtivo: {
+    backgroundColor: corPrimaria,
+  },
+  textoFiltroAtivo: {
+    color: corTextoClaro,
+  },
+  cardRanking: {
+    flex: 1,
+    flexDirection: 'row',
+    marginVertical: 20
+  },
+  icone :{
+    marginLeft: 80,
+    marginTop: 15
+  },
+  // Loja
+ botaoComprar: {
+  backgroundColor: corPrimaria,
+  borderRadius: 7,
+  padding: 15,
+  alignItems: 'center',
+  marginTop: 20
+ },
+ // Habitos
+ pickerContainer: {
+  marginVertical: 30
+ },
+ picker: {
+  paddingLeft: 10,
+  alignItems: 'center',
+  textAlign: 'center',
+  fontFamily: textoMedio,
+ },
+ fotoContainer: {
+  flex: 1,
+  flexDirection: 'row',
+  gap: 80,
+  marginVertical: 50,
+  alignItems: 'center',
+  position: 'relative',
+  right: 0,
+ },
+ foto: {
+  width: 150,
+  height: 120,
+  borderRadius: 7,
+  position: 'absolute',
+  right: 0,
+  elevation: 5
+ },
+ cameraContainer: {
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: 5,
+  backgroundColor: corPrimaria,
+  borderRadius: 50,
+  width: 100,
+  height: 100,
+  position: 'absolute',
+  left: 10,
+  elevation: 5
+ },
+ cardTitulo: {
+  flex: 1,
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between'
+ },
+ fotoCard: {
+  width: '100%',
+  borderRadius: 10,
+  height: 200,
+  marginTop: 10,
+  elevation: 5
+ },
+ // Perfil
+  headerPerfil: {
+    alignItems: 'center',
+  },
+  fotoPerfil: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    marginBottom: 20,
+  },
+  cardInfo: {
+    borderWidth: 1,
+    borderColor: corPrimaria,
+    borderRadius: 12,
+    padding: 15,
+    gap: 5,
+    marginBottom: 15,
+  },
+  tituloInfo: {
+    fontSize: 16,
+    fontFamily: textoMedio,
+    color: corPrimaria,
+  },
+  acoesPerfil: {
+    marginTop: 20,
+  },
+  botaoPerfil: {
+    backgroundColor: corPrimaria,
+    paddingVertical: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
 });

@@ -1,75 +1,90 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, Button} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import styles from '../style/style.js';
-import { useNavigation } from '@react-navigation/native';
 
+const lojaSaudavel = [
+  {
+    id: 1,
+    nome: 'Aula de Yoga Online',
+    custo: 150,
+    descricao: 'Sessão de 1h para relaxamento e alongamento.',
+  },
+  {
+    id: 2,
+    nome: 'E-book de Receitas Saudáveis',
+    custo: 100,
+    descricao: 'Receitas práticas e nutritivas para o dia a dia.',
+  },
+  {
+    id: 3,
+    nome: 'Consulta com Nutricionista (desconto)',
+    custo: 300,
+    descricao: 'Voucher de desconto para consulta nutricional.',
+  },
+  {
+    id: 4,
+    nome: 'Consulta com Personal Trainer (desconto)',
+    custo: 250,
+    descricao: 'Sessão individual com personal trainer para treinos personalizados.',
+  },
+  {
+    id: 5,
+    nome: 'Podcast Exclusivo de Bem-estar',
+    custo: 80,
+    descricao: 'Conteúdo premium sobre saúde e hábitos saudáveis.',
+  },
+  {
+    id: 6,
+    nome: 'Workshop de Meditação Guiada',
+    custo: 120,
+    descricao: 'Aula prática de técnicas de relaxamento e mindfulness.',
+  },
+  {
+    id: 7,
+    nome: 'Desconto em Academia Parceira',
+    custo: 200,
+    descricao: 'Voucher de desconto para mensalidade em academias parceiras.',
+  },
+  {
+    id: 8,
+    nome: 'Sessão de Relaxamento Mental',
+    custo: 180,
+    descricao: 'Sessão guiada de respiração e relaxamento para reduzir estresse.',
+  },
+];
 
-export default function Perfil() {
-  const navigation = useNavigation();
+export default function Loja() {
+  const [pontosUsuario, setPontosUsuario] = useState(3642); // pontos iniciais
+
+  const comprarItem = (item) => {
+    if (pontosUsuario >= item.custo) {
+      setPontosUsuario(pontosUsuario - item.custo);
+      alert(`Você comprou: ${item.nome}!`);
+    } else {
+      alert('Pontos insuficientes para esta compra.');
+    }
+  };
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 100 }}>
-      <Text style={styles.titulo}>Meu Perfil</Text>
+      {/* Pontos do usuário */}
+      <Text style={styles.titulo}>Seus pontos: {pontosUsuario}</Text>
 
-      {/* Imagem de perfil */}
-      <View style={styles.perfilContainer}>
-        <Image
-          source={require('../assets/gatinho.jpg')}
-          style={styles.perfilImagem}
-        />
-        <Text style={styles.tituloBranco}>Gatinho Nerdola</Text>
-        <Text style={styles.perfilEmail}>teste@fiap.com.br</Text>
-      </View>
+      {lojaSaudavel.map((item) => (
+        <View key={item.id} style={styles.card}>
+          <Text style={styles.subtitulo}>{item.nome}</Text>
+          <Text style={styles.texto}>{item.descricao}</Text>
+          <Text style={styles.negrito}>{item.custo} pontos</Text>
 
-      {/* Estatísticas */}
-      <View style={styles.statsContainer}>
-        <View style={styles.statBox}>
-          <Text style={styles.tituloRoxo}>1</Text>
-          <Text style={styles.texto}>Cursos</Text>
+          <TouchableOpacity
+            style={styles.botaoComprar}
+            onPress={() => comprarItem(item)}
+          >
+            <Text style={styles.textoBotao}>Comprar</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.statBox}>
-          <Text style={styles.tituloRoxo}>42h</Text>
-          <Text style={styles.texto}>Estudo</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.tituloRoxo}>120</Text>
-          <Text style={styles.texto}>Exercícios</Text>
-        </View>
-      </View>
-
-      {/* Conquistas */}
-      <Text style={styles.tituloRoxo}>Conquistas</Text>
-      <View style={styles.badgesContainer}>
-        <View style={styles.badge}>
-          <Text style={styles.badgeIcon}>🥇</Text>
-          <Text style={styles.texto}>Primeiro curso</Text>
-        </View>
-        <View style={styles.badge}>
-          <Text style={styles.badgeIcon}>🔥</Text>
-          <Text style={styles.texto}>Semana ativa</Text>
-        </View>
-      </View>
-
-      {/* Botões de ação */}
-      <Text style={styles.tituloRoxo}>Ações</Text>
-      <View style={styles.botoesContainer}>
-        <TouchableOpacity style={styles.botao}>
-          <Text style={styles.textoBotao}>Configurações</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.botao}>
-          <Text style={styles.textoBotao}>Meus Certificados</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.botao}>
-          <Text style={styles.textoBotao}>Histórico de Atividades</Text>
-        </TouchableOpacity>
-
-        <Button
-          title="Sair"
-          color="#9237fa" // Cor diferente para destacar (e porque ele já seria diferente por ser um Button :c)
-          onPress={() => navigation.navigate('Login')} // Volta para o Login
-        />
-      </View>
+      ))}
+    
     </ScrollView>
   );
 }

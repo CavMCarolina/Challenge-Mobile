@@ -1,97 +1,112 @@
 import { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import * as ImagePicker from 'expo-image-picker'; 
+import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/style.js';
 
-// Exercícios por categoria
-const exercicios = {
-  'Front-End': [
-    { id: 1, titulo: 'HTML Básico' },
-    { id: 2, titulo: 'CSS Layouts' },
-    { id: 3, titulo: 'JavaScript Essencial' },
-    { id: 4, titulo: 'React Componentes' },
-    { id: 5, titulo: 'Angular Fundamentos' },
-  ],
-  'UX e Design': [
-    { id: 1, titulo: 'Fundamentos de UX' },
-    { id: 2, titulo: 'Design Thinking' },
-    { id: 3, titulo: 'Figma Avançado' },
-    { id: 4, titulo: 'UI Design Moderno' },
-    { id: 5, titulo: 'Acessibilidade Digital' },
-  ],
-  'Mobile': [
-    { id: 1, titulo: 'React Native Básico' },
-    { id: 2, titulo: 'Flutter Essencial' },
-    { id: 3, titulo: 'Kotlin Android' },
-    { id: 4, titulo: 'Swift iOS' },
-    { id: 5, titulo: 'Publicação de Apps' },
-  ],
-  'Programação': [
-    { id: 1, titulo: 'Lógica de Programação' },
-    { id: 2, titulo: 'Python Básico' },
-    { id: 3, titulo: 'Java Essencial' },
-    { id: 4, titulo: 'C# Iniciantes' },
-    { id: 5, titulo: 'Git e GitHub' },
-  ],
-  'DataScience': [
-    { id: 1, titulo: 'Introdução ao Data Science' },
-    { id: 2, titulo: 'Estatística para Dados' },
-    { id: 3, titulo: 'Python para Dados' },
-    { id: 4, titulo: 'Machine Learning Básico' },
-    { id: 5, titulo: 'Visualização de Dados' },
-  ],
-  'Inteligência Artificial': [
-    { id: 1, titulo: 'Fundamentos de IA' },
-    { id: 2, titulo: 'Redes Neurais' },
-    { id: 3, titulo: 'Processamento de Imagens' },
-    { id: 4, titulo: 'NLP Básico' },
-    { id: 5, titulo: 'IA Ética' },
-  ],
-};
+export default function HabitTracker() {
+  const [habito, setHabito] = useState('');
+  const [categoria, setCategoria] = useState('Atividade Física');
+  const [habitos, setHabitos] = useState([]);
+  const [foto, setFoto] = useState(null);
 
-export default function Exercicios() {
-  const [categoria, setCategoria] = useState('Front-End');
+  // Função para abrir a câmera
+  const tirarFoto = async () => {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.7,
+    });
+
+    if (!result.canceled) {
+      setFoto(result.assets[0].uri);
+    }
+  };
+
+  // Adicionar hábito só se tiver foto e input
+  const adicionarHabito = () => {
+    if (!habito.trim()) {
+      Alert.alert('Campo obrigatório', 'Você precisa digitar o nome do hábito.');
+      return;
+    }
+
+    if (!foto) {
+      Alert.alert('Foto obrigatória', 'Você precisa tirar uma foto para adicionar o hábito.');
+      return;
+    }
+
+    setHabitos([...habitos, { nome: habito, categoria, foto }]);
+    setHabito('');
+    setFoto(null); // limpa a foto depois de salvar
+  };
+
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 100 }}>
-      <Text style={styles.titulo}>Treine com Exercícios!</Text>
+      <Text style={styles.titulo}>Hábitos</Text>
+      <Text style={styles.comentario}>Cada hábito vale 30 pontos. Qual hábito gostaria de adicionar?</Text>
 
-      {/* Picker estilizado */}
+      {/* Input do hábito */}
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu hábito (ex: beber água)"
+        value={habito}
+        onChangeText={setHabito}
+      />
+
+      {/* Picker de categoria */}
       <View style={styles.pickerContainer}>
+        <Text style={styles.texto}>Categoria:</Text>
         <Picker
           selectedValue={categoria}
-          style={styles.texto}
-          dropdownIconColor="#ecececff"
+          style={{
+            height: 50,
+            width: '100%',
+            color: '#017BC8',
+            fontSize: 16,
+          }}
+          dropdownIconColor={'#017BC8'}
           onValueChange={(itemValue) => setCategoria(itemValue)}
         >
-          <Picker.Item label="Front-End" value="Front-End" />
-          <Picker.Item label="UX e Design" value="UX e Design" />
-          <Picker.Item label="Mobile" value="Mobile" />
-          <Picker.Item label="Programação" value="Programação" />
-          <Picker.Item label="DataScience" value="DataScience" />
-          <Picker.Item label="Inteligência Artificial" value="Inteligência Artificial" />
+          <Picker.Item label="Atividade Física" value="Atividade Física" />
+          <Picker.Item label="Alimentação" value="Alimentação" />
+          <Picker.Item label="Sono" value="Sono" />
+          <Picker.Item label="Bem-estar" value="Bem-estar" />
         </Picker>
       </View>
 
-      {/* Exercícios com Map */}
-      {exercicios[categoria].map((ex, index) => (
-        <View key={ex.id} style={styles.exercicioContainer}>
-          {/* Bolinha */}
-          <View style={styles.bolinha}>
-            <Text style={styles.tituloBranco}>
-              {ex.id}
-            </Text>
+      {/* Tirar foto*/}
+      <View style={styles.fotoContainer}>
+        <TouchableOpacity style={styles.cameraContainer} onPress={tirarFoto}>
+          <Text style={styles.textoBotao}>Tirar Foto</Text>
+          <Ionicons name="camera" size={24} color='white' />
+        </TouchableOpacity>
+
+        {foto && (
+          <Image source={{ uri: foto }} style={styles.foto} />
+        )}
+      </View>
+
+      {/* Botão adicionar */}
+      <TouchableOpacity style={styles.botao} onPress={adicionarHabito}>
+        <Text style={styles.textoBotao}>Adicionar Hábito</Text>
+      </TouchableOpacity>
+
+      {/* Lista de hábitos */}
+      <ScrollView style={{ marginTop: 20 }}>
+        {habitos.map((item, index) => (
+          <View key={index} style={styles.card}>
+            <View style={styles.cardTitulo}>
+              <Text style={styles.subtitulo}>{item.nome}</Text>
+              <Text style={styles.subtitulo}>30 pontos</Text>
+            </View>
+            <Text style={styles.texto}>Categoria: {item.categoria}</Text>
+            {item.foto && (
+              <Image source={{ uri: item.foto }} style={styles.fotoCard} />
+            )}
           </View>
-
-          {/* Nome do exercício */}
-          <Text style={styles.texto}>{ex.titulo}</Text>
-
-          {/* Linha de conexão */}
-          {index < exercicios[categoria].length - 1 && (
-            <View style={styles.linha} />
-          )}
-        </View>
-      ))}
+        ))}
+      </ScrollView>
     </ScrollView>
   );
 }

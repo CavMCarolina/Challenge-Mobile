@@ -1,72 +1,90 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, Button} from 'react-native';
+import { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, ScrollView, Button } from 'react-native';
 import styles from '../style/style.js';
 import { useNavigation } from '@react-navigation/native';
-
 
 export default function Perfil() {
   const navigation = useNavigation();
 
+  const [usuario] = useState({
+    nome: 'Username',
+    email: 'clt.triste@empresa.com',
+    foto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1zf1l6GpWPrcTWsHvu2lRR0WjSRy7MiLcUA&s',
+    cargo: 'Analista de Marketing',
+    empresa: 'Tech Solutions Ltda',
+    planoSaude: 'Plano Ouro - Vida Saudável',
+    numeroCarteirinha: 'PS123456789',
+    validadePlano: 'Dezembro/2026',
+    pontos: 3642,
+    habitosConcluidos: 58,
+    nivel: 'Intermediário',
+    meta: 'Manter rotina de exercícios 4x por semana',
+  });
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 100 }}>
-      <Text style={styles.titulo}>Meu Perfil</Text>
-
-      {/* Imagem de perfil */}
-      <View style={styles.perfilContainer}>
-        <Image
-          source={require('../assets/gatinho.jpg')}
-          style={styles.perfilImagem}
-        />
-        <Text style={styles.tituloBranco}>Gatinho Nerdola</Text>
-        <Text style={styles.perfilEmail}>teste@fiap.com.br</Text>
+      {/* Foto e nome */}
+      <View style={styles.headerPerfil}>
+        <Image source={{ uri: usuario.foto }} style={styles.fotoPerfil} />
+        <Text style={styles.titulo}>{usuario.nome}</Text>
+        <Text style={styles.comentario}>{usuario.email}</Text>
       </View>
 
-      {/* Estatísticas */}
-      <View style={styles.statsContainer}>
-        <View style={styles.statBox}>
-          <Text style={styles.tituloRoxo}>1</Text>
-          <Text style={styles.texto}>Cursos</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.tituloRoxo}>42h</Text>
-          <Text style={styles.texto}>Estudo</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.tituloRoxo}>120</Text>
-          <Text style={styles.texto}>Exercícios</Text>
-        </View>
+      {/* Informações corporativas */}
+      <View style={styles.cardInfo}>
+        <Text style={styles.tituloInfo}>Empresa</Text>
+        <Text style={styles.texto}>{usuario.empresa}</Text>
       </View>
 
-      {/* Conquistas */}
-      <Text style={styles.tituloRoxo}>Conquistas</Text>
-      <View style={styles.badgesContainer}>
-        <View style={styles.badge}>
-          <Text style={styles.badgeIcon}>🥇</Text>
-          <Text style={styles.texto}>Primeiro curso</Text>
-        </View>
-        <View style={styles.badge}>
-          <Text style={styles.badgeIcon}>🔥</Text>
-          <Text style={styles.texto}>Semana ativa</Text>
-        </View>
+      <View style={styles.cardInfo}>
+        <Text style={styles.tituloInfo}>Cargo</Text>
+        <Text style={styles.texto}>{usuario.cargo}</Text>
+      </View>
+
+      {/* Plano de saúde */}
+      <View style={styles.cardInfo}>
+        <Text style={styles.tituloInfo}>Plano de Saúde</Text>
+        <Text style={styles.texto}>{usuario.planoSaude}</Text>
+        <Text style={styles.texto}>Carteirinha: {usuario.numeroCarteirinha}</Text>
+        <Text style={styles.texto}>Validade: {usuario.validadePlano}</Text>
+      </View>
+
+      {/* Pontos e progresso */}
+      <View style={styles.cardInfo}>
+        <Text style={styles.tituloInfo}>Seus pontos</Text>
+        <Text style={styles.texto}>{usuario.pontos}</Text>
+      </View>
+
+      <View style={styles.cardInfo}>
+        <Text style={styles.tituloInfo}>Hábitos concluídos</Text>
+        <Text style={styles.texto}>{usuario.habitosConcluidos}</Text>
+      </View>
+
+      <View style={styles.cardInfo}>
+        <Text style={styles.tituloInfo}>Nível atual</Text>
+        <Text style={styles.texto}>{usuario.nivel}</Text>
+      </View>
+
+      <View style={styles.cardInfo}>
+        <Text style={styles.tituloInfo}>Meta</Text>
+        <Text style={styles.texto}>{usuario.meta}</Text>
       </View>
 
       {/* Botões de ação */}
-      <Text style={styles.tituloRoxo}>Ações</Text>
-      <View style={styles.botoesContainer}>
-        <TouchableOpacity style={styles.botao}>
+      <View style={styles.acoesPerfil}>
+        <TouchableOpacity style={styles.botaoPerfil}>
           <Text style={styles.textoBotao}>Configurações</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.botao}>
-          <Text style={styles.textoBotao}>Meus Certificados</Text>
+        <TouchableOpacity style={styles.botaoPerfil}>
+          <Text style={styles.textoBotao}>Editar Perfil</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.botao}>
-          <Text style={styles.textoBotao}>Histórico de Atividades</Text>
+        <TouchableOpacity style={styles.botaoPerfil}>
+          <Text style={styles.textoBotao}>Suporte ao Cliente</Text>
         </TouchableOpacity>
 
         <Button
           title="Sair"
-          color="#9237fa" // Cor diferente para destacar (e porque ele já seria diferente por ser um Button :c)
+          color="#FF4D4D"
           onPress={() => navigation.navigate('Login')} // Volta para o Login
         />
       </View>

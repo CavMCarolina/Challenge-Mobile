@@ -1,93 +1,61 @@
-import { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import styles from '../style/style.js';
 
-// Criação de vários cursos para diferentes categorias
-const trilhas = [
-  // Front-End
-  { id: '1', categoria: 'Front-End', titulo: 'HTML & CSS Básico', descricao: 'Fundamentos da web.', carga: '12 horas' },
-  { id: '2', categoria: 'Front-End', titulo: 'JavaScript Essencial', descricao: 'Lógica e interatividade.', carga: '18 horas' },
-  { id: '3', categoria: 'Front-End', titulo: 'React para Iniciantes', descricao: 'Componentes e estado.', carga: '20 horas' },
-  { id: '4', categoria: 'Front-End', titulo: 'Vue.js Básico', descricao: 'Framework progressivo.', carga: '15 horas' },
-  { id: '5', categoria: 'Front-End', titulo: 'Angular Fundamentos', descricao: 'Arquitetura e módulos.', carga: '22 horas' },
-
-  // UX e Design
-  { id: '6', categoria: 'UX e Design', titulo: 'Fundamentos de UX', descricao: 'Experiência do usuário.', carga: '14 horas' },
-  { id: '7', categoria: 'UX e Design', titulo: 'Design Thinking', descricao: 'Metodologia criativa.', carga: '12 horas' },
-  { id: '8', categoria: 'UX e Design', titulo: 'Figma Avançado', descricao: 'Protótipos e colaboração.', carga: '16 horas' },
-  { id: '9', categoria: 'UX e Design', titulo: 'UI Design Moderno', descricao: 'Interfaces visuais.', carga: '18 horas' },
-  { id: '10', categoria: 'UX e Design', titulo: 'Acessibilidade Digital', descricao: 'Design inclusivo.', carga: '10 horas' },
-
-  // Mobile
-  { id: '11', categoria: 'Mobile', titulo: 'React Native Básico', descricao: 'Criação de apps móveis.', carga: '20 horas' },
-  { id: '12', categoria: 'Mobile', titulo: 'Flutter Essencial', descricao: 'Apps multiplataforma.', carga: '22 horas' },
-  { id: '13', categoria: 'Mobile', titulo: 'Kotlin para Android', descricao: 'Desenvolvimento nativo.', carga: '18 horas' },
-  { id: '14', categoria: 'Mobile', titulo: 'Swift para iOS', descricao: 'Apps para iPhone.', carga: '20 horas' },
-  { id: '15', categoria: 'Mobile', titulo: 'Publicação de Apps', descricao: 'Play Store e App Store.', carga: '12 horas' },
-
-  // Programação
-  { id: '16', categoria: 'Programação', titulo: 'Lógica de Programação', descricao: 'Algoritmos e estruturas.', carga: '15 horas' },
-  { id: '17', categoria: 'Programação', titulo: 'Python Básico', descricao: 'Sintaxe e fundamentos.', carga: '18 horas' },
-  { id: '18', categoria: 'Programação', titulo: 'Java Essencial', descricao: 'Orientação a objetos.', carga: '20 horas' },
-  { id: '19', categoria: 'Programação', titulo: 'C# para Iniciantes', descricao: 'Aplicações desktop.', carga: '16 horas' },
-  { id: '20', categoria: 'Programação', titulo: 'Git e GitHub', descricao: 'Controle de versão.', carga: '12 horas' },
-
-  // DataScience
-  { id: '21', categoria: 'DataScience', titulo: 'Introdução ao Data Science', descricao: 'Conceitos básicos.', carga: '14 horas' },
-  { id: '22', categoria: 'DataScience', titulo: 'Estatística para Dados', descricao: 'Probabilidade e análise.', carga: '18 horas' },
-  { id: '23', categoria: 'DataScience', titulo: 'Python para Dados', descricao: 'Pandas e NumPy.', carga: '20 horas' },
-  { id: '24', categoria: 'DataScience', titulo: 'Machine Learning Básico', descricao: 'Modelos preditivos.', carga: '22 horas' },
-  { id: '25', categoria: 'DataScience', titulo: 'Visualização de Dados', descricao: 'Gráficos e dashboards.', carga: '16 horas' },
-
-  // Inteligência Artificial
-  { id: '26', categoria: 'Inteligência Artificial', titulo: 'Fundamentos de IA', descricao: 'História e conceitos.', carga: '12 horas' },
-  { id: '27', categoria: 'Inteligência Artificial', titulo: 'Redes Neurais', descricao: 'Arquiteturas básicas.', carga: '20 horas' },
-  { id: '28', categoria: 'Inteligência Artificial', titulo: 'Processamento de Imagens', descricao: 'Visão computacional.', carga: '18 horas' },
-  { id: '29', categoria: 'Inteligência Artificial', titulo: 'NLP Básico', descricao: 'Processamento de linguagem.', carga: '16 horas' },
-  { id: '30', categoria: 'Inteligência Artificial', titulo: 'IA Ética', descricao: 'Impactos sociais.', carga: '10 horas' },
+const artigos = [
+  {
+    id: '1',
+    titulo: '8 hábitos saudáveis para transformar seu ano',
+    resumo: 'Ajustar rotina de sono, ler diariamente e pequenas mudanças que trazem bem-estar...',
+    url: 'https://www.terra.com.br/vida-e-estilo/comportamento/metas-para-2026-8-habitos-saudaveis-que-vao-transformar-o-seu-ano,7d84dccecdce388615d94449832f17754cy1oq9o.html'
+  },
+  {
+    id: '2',
+    titulo: 'Hábitos simples que podem prejudicar sua saúde',
+    resumo: 'Consumo frequente de álcool e falta de frutas e vegetais podem afetar o corpo...',
+    url: 'https://www.correiobraziliense.com.br/cbradar/os-habitos-simples-e-cotidianos-que-podem-estar-prejudicando-sua-saude/'
+  },
+  {
+    id: '3',
+    titulo: '5 hábitos que ajudam a limpar as artérias',
+    resumo: 'Reduzir fatores de risco e adotar estilo de vida saudável para proteger o coração...',
+    url: 'https://www.metropoles.com/colunas/claudia-meireles/cardiologista-cita-5-habitos-simples-que-ajudam-a-limpar-as-arterias'
+  },
+  {
+    id: '4',
+    titulo: 'Alimentação balanceada: como montar pratos saudáveis',
+    resumo: 'Entenda como combinar proteínas, carboidratos e vegetais para manter energia e saúde no dia a dia...',
+    url: 'https://www.uol.com.br/vivabem/noticias/redacao/2025/11/10/alimentacao-balanceada-como-montar-pratos-saudaveis.htm'
+  },
 ];
 
 export default function Home() {
-  const [categoria, setCategoria] = useState('Todas');
-
-  const trilhasFiltradas = categoria === 'Todas'
-    ? trilhas
-    : trilhas.filter(t => t.categoria === categoria);
+  const navigation = useNavigation();
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 100 }}>
-      <Text style={styles.titulo}>Trilhas de Aprendizado</Text>
-
-      {/* Colocando o Picker dentro de um View para conseguir estilizar */}
-      <View style={styles.pickerContainer}>
-        {/* Picker com todas as categorias */}
-        <Picker
-          selectedValue={categoria}
-          style={styles.texto}
-          dropdownIconColor="#ecececff" 
-          onValueChange={(itemValue) => setCategoria(itemValue)}
-        >
-          <Picker.Item label="Todas" value="Todas" />
-          <Picker.Item label="Front-End" value="Front-End" />
-          <Picker.Item label="UX e Design" value="UX e Design" />
-          <Picker.Item label="Mobile" value="Mobile" />
-          <Picker.Item label="Programação" value="Programação" />
-          <Picker.Item label="DataScience" value="DataScience" />
-          <Picker.Item label="Inteligência Artificial" value="Inteligência Artificial" />
-        </Picker>
+      <Text style={styles.titulo}>Bem-vindo(a)!</Text>
+      <View style={styles.pontosContainer}>
+        <View style={styles.pontosHome}>
+          <Text style={styles.pontosHomeTitulo}>3642 PONTOS ACUMULADOS</Text>
+          <Text style={styles.texto}>top 23 no ranking semanal</Text>
+          <TouchableOpacity style={styles.lojaHome} onPress={() => navigation.navigate('Loja')}>
+            <Text style={[styles.texto, styles.link]}>Ir para a loja</Text>
+            <Ionicons name='arrow-forward-circle-outline' size={24} color='#017BC8'/>
+          </TouchableOpacity>
+        </View>
       </View>
 
-      {/* Map para percorrer todos os cursos */}
-      {trilhasFiltradas.map((item) => (
+      {/* Seção de artigos */}
+      <Text style={styles.titulo}>Hábitos Saudáveis</Text>
+
+     {artigos.map((item) => (
         <View key={item.id} style={styles.card}>
-          <View style={styles.cardHeader}>
-            <Text style={styles.tituloRoxo}>{item.titulo}</Text>
-            <Text style={styles.cardCarga}>{item.carga}</Text>
-          </View>
-          <Text style={styles.cardDescricao}>{item.descricao}</Text>
-          <TouchableOpacity style={styles.botao}>
-            <Text style={styles.textoBotao}>Começar</Text>
+          <Text style={styles.subtitulo}>{item.titulo}</Text>
+          <Text style={styles.texto}>{item.resumo}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('WebViewScreen', { url: item.url })}>
+            <Text style={[styles.negrito, styles.link]}>Ler mais...</Text>
           </TouchableOpacity>
         </View>
       ))}
