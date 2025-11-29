@@ -100,10 +100,11 @@ O app incentiva o bem-estar através de gamificação, com pontos, ranking e loj
 Funcionários de empresas que possuem assinatura de plano de saúde corporativo, incentivando hábitos saudáveis e oferecendo benefícios reais através da gamificação.
 
 ## 📹 Vídeo demonstrativo
-Esse vídeo tem como responsabilidade demonstrar a navegação e funcionalidades do aplicativo. [Acesse aqui]()
+Esse vídeo tem como responsabilidade demonstrar a navegação e funcionalidades do aplicativo. [Acesse aqui](https://youtu.be/nj-n01m26BE?si=kmSGD-6uenB8D6dj)
 
 ## 👥 Integrantes
 - Carolina Machado, 552925;
 - Felipe Nakama, 552821;
 - Micael Azarias, 552699;
+
 - Nathan Uflacker, 553264.
