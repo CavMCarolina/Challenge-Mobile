@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import styles from '../style/style.js';
+import { useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Alert, ActivityIndicator } from 'react-native';
+import { ItemLoja } from '../types';
+import { useApp } from '../context/AppContext';
+import styles from '../style/style';
 
-const lojaSaudavel = [
+const lojaSaudavel: ItemLoja[] = [
   {
     id: 1,
     nome: 'Aula de Yoga Online',
@@ -53,22 +55,28 @@ const lojaSaudavel = [
   },
 ];
 
-export default function Loja() {
-  const [pontosUsuario, setPontosUsuario] = useState(3642); // pontos iniciais
+export default function LojaScreen() {
+  const { pontos, gastarPontos } = useApp();
+  const [comprando, setComprando] = useState<number | null>(null);
 
-  const comprarItem = (item) => {
-    if (pontosUsuario >= item.custo) {
-      setPontosUsuario(pontosUsuario - item.custo);
-      alert(`Você comprou: ${item.nome}!`);
-    } else {
-      alert('Pontos insuficientes para esta compra.');
+  const comprarItem = async (item: ItemLoja): Promise<void> => {
+    setComprando(item.id);
+    try {
+      const sucesso = await gastarPontos(item.custo);
+      if (sucesso) {
+        Alert.alert('Compra realizada!', `Você comprou: ${item.nome}!`);
+      } else {
+        Alert.alert('Pontos insuficientes', 'Você não tem pontos suficientes para esta compra.');
+      }
+    } finally {
+      setComprando(null);
     }
   };
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 100 }}>
       {/* Pontos do usuário */}
-      <Text style={styles.titulo}>Seus pontos: {pontosUsuario}</Text>
+      <Text style={styles.titulo}>Seus pontos: {pontos}</Text>
 
       {lojaSaudavel.map((item) => (
         <View key={item.id} style={styles.card}>
@@ -79,12 +87,16 @@ export default function Loja() {
           <TouchableOpacity
             style={styles.botaoComprar}
             onPress={() => comprarItem(item)}
+            disabled={comprando !== null}
           >
-            <Text style={styles.textoBotao}>Comprar</Text>
+            {comprando === item.id ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.textoBotao}>Comprar</Text>
+            )}
           </TouchableOpacity>
         </View>
       ))}
-    
     </ScrollView>
   );
 }
