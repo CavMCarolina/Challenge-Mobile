@@ -91,7 +91,7 @@ export default function PerfilScreen() {
           <Text style={styles.textoBotao}>Suporte ao Cliente</Text>
         </TouchableOpacity>
 
-         {/* Volta para o Login */}
+        {/* Volta para o Login */}
         <Button title="Sair" color="#FF4D4D" onPress={sair} /> 
       </View>
     </ScrollView>

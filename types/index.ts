@@ -59,6 +59,14 @@ export type RootStackParamList = {
   WebViewScreen: { url: string };
 };
 
+export type TabParamList = {
+  Home: undefined;
+  Habitos: undefined;
+  Ranking: undefined;
+  Loja: undefined;
+  Perfil: undefined;
+};
+
 export interface AppContextType {
   pontos: number;
   habitos: Habito[];

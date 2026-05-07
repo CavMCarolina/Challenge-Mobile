@@ -38,7 +38,10 @@ O app incentiva o bem-estar através de gamificação, com pontos, ranking e loj
 ## 🛠️ Tecnologias utilizadas
 
 - [React Native](https://reactnative.dev/)  
-- [Expo](https://expo.dev/)  
+- [Expo](https://expo.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [@react-native-async-storage/async-storage](https://react-native-async-storage.github.io/async-storage/)
+- [@react-navigation/native](https://reactnavigation.org/) 
 - [@react-native-picker/picker](https://github.com/react-native-picker/picker)  
 - [expo-image-picker](https://docs.expo.dev/versions/latest/sdk/imagepicker/)  
 - [expo-google-fonts/montserrat](https://github.com/expo/google-fonts)  
@@ -47,21 +50,30 @@ O app incentiva o bem-estar através de gamificação, com pontos, ranking e loj
 ## 📂 Estrutura de diretórios
     CareTrack/
     ├── assets/
-    │   └── icon.png
+    │   ├── icon.png
     │   └── logo.png
+    ├── screens/
+    │   ├── LoginScreen.tsx
+    │   ├── HomeScreen.tsx
+    │   ├── HabitosScreen.tsx
+    │   ├── RankingScreen.tsx
+    │   ├── LojaScreen.tsx
+    │   └── PerfilScreen.tsx
     ├── components/
-    │   ├── Habitos.js
-    │   ├── Home.js
-    │   ├── Login.js
-    │   ├── Loja.js
-    │   ├── Perfil.js
-    │   └── Ranking.js
+    │   └── HabitCard.tsx
+    ├── services/
+    │   └── storage.ts
+    ├── context/
+    │   └── AppContext.tsx
+    ├── types/
+    │   └── index.ts
     ├── navigation/
-    │   ├── TabNavigation.js
-    │   └── WebViewScreen.js
+    │   ├── TabNavigation.tsx
+    │   └── WebViewScreen.tsx
     ├── style/
-    │   └── style.js
-    ├── App.js
+    │   └── style.ts
+    ├── App.tsx
+    ├── tsconfig.json
     └── package.json
 
 ## ⚙️ Instalação e execução
@@ -72,23 +84,7 @@ O app incentiva o bem-estar através de gamificação, com pontos, ranking e loj
     ```
 - Instale as dependências:
     ```
-    npm i
-    ```
-- Garantir compatibilidade com Expo:
-    ```
-    npx expo install expo
-    npx expo install react-native
-    npx expo install react react-dom
-    ```
-- Conferir e instalar bibliotecas necessárias
-    ```
-    npx expo install react-native-screens react-native-safe-area-context
-    npx expo install react-native-reanimated
-    npx expo install @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs
-    npx expo install expo-image-picker
-    npx expo install @expo/vector-icons
-    npx expo install @expo-google-fonts/montserrat expo-font
-    npx expo install react-native-webview
+    npm install
     ```
 - Inicie o projeto com cache limpo:
     ```
@@ -106,5 +102,4 @@ Esse vídeo tem como responsabilidade demonstrar a navegação e funcionalidades
 - Carolina Machado, 552925;
 - Felipe Nakama, 552821;
 - Micael Azarias, 552699;
-
 - Nathan Uflacker, 553264.

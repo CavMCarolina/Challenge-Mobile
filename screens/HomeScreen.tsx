@@ -1,12 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
+import { CompositeNavigationProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../context/AppContext';
-import { Artigo, RootStackParamList } from '../types';
+import { Artigo, RootStackParamList, TabParamList } from '../types';
 import styles from '../style/style';
 
-type HomeNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+type HomeNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<TabParamList, 'Home'>,
+  NativeStackNavigationProp<RootStackParamList>
+>;
 
 const artigos: Artigo[] = [
   {
@@ -48,7 +53,7 @@ export default function HomeScreen() {
           <Text style={styles.texto}>Acesse a loja e troque seus pontos</Text>
           <TouchableOpacity
             style={styles.lojaHome}
-            onPress={() => navigation.navigate('App')}
+            onPress={() => navigation.navigate('Loja')}
           >
             <Text style={[styles.texto, styles.link]}>Ir para a loja</Text>
             <Ionicons name="arrow-forward-circle-outline" size={24} color="#017BC8" />
