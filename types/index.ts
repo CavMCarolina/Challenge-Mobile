@@ -72,4 +72,5 @@ export interface AppContextType {
   habitos: Habito[];
   adicionarHabito: (habito: Habito) => Promise<void>;
   gastarPontos: (valor: number) => Promise<boolean>;
+  resetarPontos: () => Promise<void>;
 }

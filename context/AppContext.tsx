@@ -5,7 +5,7 @@ import { StorageService } from '../services/storage';
 const AppContext = createContext<AppContextType | null>(null);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [pontos, setPontos] = useState<number>(3642);
+  const [pontos, setPontos] = useState<number>(300);
   const [habitos, setHabitos] = useState<Habito[]>([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const adicionarHabito = async (habito: Habito): Promise<void> => {
-    const novosHabitos = [...habitos, habito];
+    const novosHabitos = [habito, ...habitos];
     const novosPontos = pontos + habito.pontos;
     setHabitos(novosHabitos);
     setPontos(novosPontos);
@@ -39,8 +39,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return true;
   };
 
+  const resetarPontos = async (): Promise<void> => {
+    await StorageService.resetarPontos();
+    setPontos(0);
+  };
+
   return (
-    <AppContext.Provider value={{ pontos, habitos, adicionarHabito, gastarPontos }}>
+    <AppContext.Provider value={{ pontos, habitos, adicionarHabito, gastarPontos, resetarPontos }}>
       {children}
     </AppContext.Provider>
   );

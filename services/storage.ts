@@ -14,7 +14,7 @@ export const StorageService = {
 
   async carregarPontos(): Promise<number> {
     const valor = await AsyncStorage.getItem(KEYS.PONTOS);
-    return valor !== null ? (JSON.parse(valor) as number) : 3642;
+    return valor !== null ? (JSON.parse(valor) as number) : 300;
   },
 
   async salvarHabitos(habitos: Habito[]): Promise<void> {
@@ -36,5 +36,9 @@ export const StorageService = {
 
   async limparSessao(): Promise<void> {
     await AsyncStorage.removeItem(KEYS.SESSAO);
+  },
+
+  async resetarPontos(): Promise<void> {
+    await AsyncStorage.removeItem(KEYS.PONTOS);
   },
 };

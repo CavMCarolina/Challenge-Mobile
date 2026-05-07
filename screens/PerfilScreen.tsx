@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, Button } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useApp } from '../context/AppContext';
@@ -24,7 +24,18 @@ const dadosUsuario: Usuario = {
 
 export default function PerfilScreen() {
   const navigation = useNavigation<PerfilNavigationProp>();
-  const { pontos, habitos } = useApp();
+  const { pontos, habitos, resetarPontos } = useApp();
+
+  const confirmarReset = (): void => {
+    Alert.alert(
+      'Resetar pontos',
+      'Seus pontos serão zerados. Tem certeza?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Resetar', style: 'destructive', onPress: resetarPontos },
+      ]
+    );
+  };
 
   const sair = async (): Promise<void> => {
     await StorageService.limparSessao();
@@ -91,8 +102,11 @@ export default function PerfilScreen() {
           <Text style={styles.textoBotao}>Suporte ao Cliente</Text>
         </TouchableOpacity>
 
+        {/* Resetar os Pontos*/}
+        <Button title="Resetar pontos" color="#FF9900" onPress={confirmarReset} />
+
         {/* Volta para o Login */}
-        <Button title="Sair" color="#FF4D4D" onPress={sair} /> 
+        <Button title="Sair" color="#FF4D4D" onPress={sair} />
       </View>
     </ScrollView>
   );

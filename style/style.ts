@@ -346,12 +346,13 @@ export default StyleSheet.create({
   },
   acoesPerfil: {
     marginTop: 20,
+    flex: 1,
+    gap: 12
   },
   botaoPerfil: {
     backgroundColor: CORES.primaria,
     paddingVertical: 12,
     borderRadius: 5,
     alignItems: 'center',
-    marginBottom: 10,
   },
 });
