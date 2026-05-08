@@ -29,7 +29,6 @@ export interface ItemRanking {
   id: number;
   nome: string;
   pontos: number;
-  posicao: number;
 }
 
 export interface Usuario {
