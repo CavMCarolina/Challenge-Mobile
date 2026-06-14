@@ -228,7 +228,8 @@ Funcionários de empresas que possuem assinatura de plano de saúde corporativo,
 
 ## 📹 Vídeo demonstrativo
 
-Esse vídeo tem como responsabilidade demonstrar a navegação e funcionalidades do aplicativo. [Acesse aqui](https://youtu.be/nj-n01m26BE?si=kmSGD-6uenB8D6dj)
+ - [Sprint 3](https://youtu.be/nj-n01m26BE?si=kmSGD-6uenB8D6dj)
+ - [Sprint 4](https://youtu.be/8mOGyQvu4x0?is=VRCYl5zV1oNKrOBQ)
 
 ## 👥 Integrantes
 
