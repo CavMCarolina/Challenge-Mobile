@@ -14,6 +14,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
 import { CategoriaHabito, Habito } from '../types';
 import { useApp } from '../context/AppContext';
+import { NotificationService } from '../services/notificationService';
 import HabitCard from '../components/HabitCard';
 import styles from '../style/style';
 
@@ -26,6 +27,18 @@ export default function HabitosScreen() {
 
   // Função para abrir a câmera
   const tirarFoto = async (): Promise<void> => {
+    // Permissão antes de abrir
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (status !== 'granted') {
+      Alert.alert(
+        'Permissão necessária',
+        'Para tirar fotos dos seus hábitos, permita o acesso à câmera nas configurações do dispositivo.',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 0.7,
@@ -54,8 +67,12 @@ export default function HabitosScreen() {
         pontos: 30,
       };
 
-      // Adicionar hábito só se tiver foto e input
+            // Adicionar hábito só se tiver foto e input
       await adicionarHabito(novoHabito);
+
+      // Notificação push ao adicionar hábito com sucesso
+      await NotificationService.notificarHabitoAdicionado(novoHabito.nome);
+
       setNomeHabito('');
       setFoto(null);
       Alert.alert('Sucesso!', 'Hábito adicionado. Você ganhou 30 pontos!');
@@ -115,6 +132,16 @@ export default function HabitosScreen() {
           <Text style={styles.textoBotao}>Adicionar Hábito</Text>
         )}
       </TouchableOpacity>
+
+      {/* Estado vazio */}
+      {habitos.length === 0 && (
+        <View style={{ alignItems: 'center', marginTop: 60, gap: 8 }}>
+          <Ionicons name="leaf-outline" size={48} color="#ccc" />
+          <Text style={[styles.texto, { color: '#ccc', textAlign: 'center' }]}>
+            Nenhum hábito adicionado ainda.{'\n'}Comece agora e ganhe pontos!
+          </Text>
+        </View>
+      )}
 
       {/* Lista de hábitos */}
       <FlatList

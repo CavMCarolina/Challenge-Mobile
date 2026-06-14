@@ -73,3 +73,14 @@ export interface AppContextType {
   gastarPontos: (valor: number) => Promise<boolean>;
   resetarPontos: () => Promise<void>;
 }
+
+// IoT types
+export type IoTStatus = 'desconectado' | 'conectando' | 'conectado' | 'erro';
+
+export interface SensorData {
+  frequenciaCardiaca: number;
+  passos: number;
+  temperatura: number;
+  nivelAtividade: 'Baixo' | 'Moderado' | 'Alto';
+  timestamp: string;
+}

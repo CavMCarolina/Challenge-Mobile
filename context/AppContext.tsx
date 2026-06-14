@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { AppContextType, Habito } from '../types';
 import { StorageService } from '../services/storage';
+import { NotificationService } from '../services/notificationService';
 
 const AppContext = createContext<AppContextType | null>(null);
 
@@ -16,6 +17,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ]);
       setPontos(pontosStorage);
       setHabitos(habitosStorage);
+
+      // Solicita permissão e agenda lembrete diário de hábitos
+      await NotificationService.configurarLembretesDiarios();
     }
     carregarDados();
   }, []);
@@ -40,8 +44,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const resetarPontos = async (): Promise<void> => {
-    await StorageService.resetarPontos();
+    await StorageService.resetarTudo();
     setPontos(0);
+    setHabitos([]);
   };
 
   return (

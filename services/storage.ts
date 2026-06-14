@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { Habito } from '../types';
 
 const KEYS = {
   PONTOS: '@caretrack:pontos',
   HABITOS: '@caretrack:habitos',
-  SESSAO: '@caretrack:sessao',
+  SESSAO: 'caretrack_sessao',
 } as const;
 
 export const StorageService = {
@@ -26,19 +27,20 @@ export const StorageService = {
     return valor !== null ? (JSON.parse(valor) as Habito[]) : [];
   },
 
+  // Sessão armazenada de forma segura (criptografada pelo SecureStore)
   async salvarSessao(cpf: string): Promise<void> {
-    await AsyncStorage.setItem(KEYS.SESSAO, cpf);
+    await SecureStore.setItemAsync(KEYS.SESSAO, cpf);
   },
 
   async carregarSessao(): Promise<string | null> {
-    return AsyncStorage.getItem(KEYS.SESSAO);
+    return SecureStore.getItemAsync(KEYS.SESSAO);
   },
 
   async limparSessao(): Promise<void> {
-    await AsyncStorage.removeItem(KEYS.SESSAO);
+    await SecureStore.deleteItemAsync(KEYS.SESSAO);
   },
 
-  async resetarPontos(): Promise<void> {
-    await AsyncStorage.removeItem(KEYS.PONTOS);
+  async resetarTudo(): Promise<void> {
+    await AsyncStorage.multiRemove([KEYS.PONTOS, KEYS.HABITOS]);
   },
 };

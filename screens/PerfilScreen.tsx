@@ -1,10 +1,20 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, Button, Alert } from 'react-native';
+import { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Button,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useApp } from '../context/AppContext';
 import { StorageService } from '../services/storage';
 import { Usuario, RootStackParamList } from '../types';
-import styles from '../style/style';
+import styles, { CORES } from '../style/style';
 
 type PerfilNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -17,7 +27,7 @@ const dadosUsuario: Usuario = {
   planoSaude: 'Plano Ouro - Vida Saudável',
   numeroCarteirinha: 'PS123456789',
   validadePlano: 'Dezembro/2026',
-  habitosConcluidos: 58,
+  habitosConcluidos: 260,
   nivel: 'Intermediário',
   meta: 'Manter rotina de exercícios 4x por semana',
 };
@@ -25,11 +35,19 @@ const dadosUsuario: Usuario = {
 export default function PerfilScreen() {
   const navigation = useNavigation<PerfilNavigationProp>();
   const { pontos, habitos, resetarPontos } = useApp();
+  const [carregando, setCarregando] = useState<boolean>(true);
+  const [saindo, setSaindo] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Simula carregamento do perfil do usuário
+    const timer = setTimeout(() => setCarregando(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const confirmarReset = (): void => {
     Alert.alert(
       'Resetar pontos',
-      'Seus pontos serão zerados. Tem certeza?',
+      'Seus pontos e hábitos serão zerados. Tem certeza?',
       [
         { text: 'Cancelar', style: 'cancel' },
         { text: 'Resetar', style: 'destructive', onPress: resetarPontos },
@@ -38,9 +56,25 @@ export default function PerfilScreen() {
   };
 
   const sair = async (): Promise<void> => {
-    await StorageService.limparSessao();
-    navigation.navigate('Login');
+    setSaindo(true);
+    try {
+      await StorageService.limparSessao();
+      navigation.navigate('Login');
+    } finally {
+      setSaindo(false);
+    }
   };
+
+  if (carregando) {
+    return (
+      <View style={[styles.container, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
+        <ActivityIndicator size="large" color={CORES.primaria} />
+        <Text style={[styles.texto, { color: CORES.textoCinza, marginTop: 12 }]}>
+          Carregando perfil...
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 100 }}>
@@ -106,7 +140,17 @@ export default function PerfilScreen() {
         <Button title="Resetar pontos" color="#FF9900" onPress={confirmarReset} />
 
         {/* Volta para o Login */}
-        <Button title="Sair" color="#FF4D4D" onPress={sair} />
+        <TouchableOpacity
+          style={[styles.botaoPerfil, { backgroundColor: '#FF4D4D' }]}
+          onPress={sair}
+          disabled={saindo}
+        >
+          {saindo ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={styles.textoBotao}>Sair</Text>
+          )}
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

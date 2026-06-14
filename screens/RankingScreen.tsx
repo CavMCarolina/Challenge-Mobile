@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; 
+import { useState, useEffect } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { FiltroRanking, ItemRanking } from '../types';
 import { useApp } from '../context/AppContext';
-import styles from '../style/style';
+import styles, { CORES } from '../style/style';
 
 // Outros usuários no ranking semanal (user tem pontos + PONTOS_GASTOS_SEMANAL)
 const rankingSemanal: ItemRanking[] = [
@@ -35,12 +35,25 @@ const corCircle = (posicao: number): { backgroundColor: string } => {
   if (posicao === 1) return { backgroundColor: '#099c4b' };
   if (posicao === 2) return { backgroundColor: '#ecba15' };
   if (posicao === 3) return { backgroundColor: '#da3e0f' };
-  return { backgroundColor: '#017BC8' };
+  return { backgroundColor: CORES.primaria };
 };
 
 export default function RankingScreen() {
   const [filtro, setFiltro] = useState<FiltroRanking>(FiltroRanking.Semanal);
+  const [carregando, setCarregando] = useState<boolean>(true);
   const { habitos } = useApp();
+
+  useEffect(() => {
+    // Simula carregamento dos dados do ranking
+    const timer = setTimeout(() => setCarregando(false), 600);
+    return () => clearTimeout(timer);
+  }, [filtro]);
+
+  const handleFiltro = (novoFiltro: FiltroRanking): void => {
+    setCarregando(true);
+    setFiltro(novoFiltro);
+  };
+
   const pontosGanhos = 300 + habitos.reduce((soma, h) => soma + h.pontos, 0);
 
   const dados = filtro === FiltroRanking.Semanal ? rankingSemanal : rankingAnual;
@@ -65,9 +78,9 @@ export default function RankingScreen() {
       <View style={styles.filtros}>
         <TouchableOpacity
           style={[styles.botaoFiltro, filtro === FiltroRanking.Semanal && styles.botaoAtivo]}
-          onPress={() => setFiltro(FiltroRanking.Semanal)}
+          onPress={() => handleFiltro(FiltroRanking.Semanal)}
         >
-          <Text
+          <Text 
             style={[styles.textoFiltro, filtro === FiltroRanking.Semanal && styles.textoFiltroAtivo]}
           >
             Semanal
@@ -76,7 +89,7 @@ export default function RankingScreen() {
 
         <TouchableOpacity
           style={[styles.botaoFiltro, filtro === FiltroRanking.Anual && styles.botaoAtivo]}
-          onPress={() => setFiltro(FiltroRanking.Anual)}
+          onPress={() => handleFiltro(FiltroRanking.Anual)}
         >
           <Text
             style={[styles.textoFiltro, filtro === FiltroRanking.Anual && styles.textoFiltroAtivo]}
@@ -86,42 +99,54 @@ export default function RankingScreen() {
         </TouchableOpacity>
       </View>
 
-       {/* Lista de ranking */}
-      {listaCompleta.map((item) => (
-        <View key={item.id} style={styles.cardRanking}>
-          <View style={[styles.circle, corCircle(item.id)]}>
-            <Text style={styles.numeroRanking}>{item.id}</Text>
-          </View>
-          <View style={styles.infoRanking}>
-            <Text style={styles.nomeRanking}>{item.nome}</Text>
-            <Text style={styles.pontosRanking}>{item.pontos} pontos</Text>
-          </View>
-          {/* Ícone nos 3 primeiros */}
-          {item.id <= 3 && (
-            <Ionicons name="trophy" size={26} color="#017BC8" style={styles.icone} />
-          )}
+      {/* Estado de carregamento */}
+      {carregando ? (
+        <View style={{ alignItems: 'center', marginTop: 60 }}>
+          <ActivityIndicator size="large" color={CORES.primaria} />
+          <Text style={[styles.texto, { color: CORES.textoCinza, marginTop: 12 }]}>
+            Carregando ranking...
+          </Text>
         </View>
-      ))}
+      ) : (
+        <>
+          {/* Lista de ranking */}
+          {listaCompleta.map((item) => (
+            <View key={item.id} style={styles.cardRanking}>
+              <View style={[styles.circle, corCircle(item.id)]}>
+                <Text style={styles.numeroRanking}>{item.id}</Text>
+              </View>
+              <View style={styles.infoRanking}>
+                <Text style={styles.nomeRanking}>{item.nome}</Text>
+                <Text style={styles.pontosRanking}>{item.pontos} pontos</Text>
+              </View>
+              {/* Ícone nos 3 primeiros */} 
+              {item.id <= 3 && (
+                <Ionicons name="trophy" size={26} color={CORES.primaria} style={styles.icone} />
+              )}
+            </View>
+          ))}
 
-      {/* Card do usuário */}
-      <View style={styles.cardRankingUser}>
-        <View style={filtro === FiltroRanking.Semanal ? styles.bolinhaRankingFirst : styles.bolinhaRanking} />
-        <View style={filtro === FiltroRanking.Semanal ? styles.posicaoRankingUserFirst : styles.posicaoRankingUser}>
-          <View style={styles.bg}>
-            <View style={filtro === FiltroRanking.Semanal ? styles.circleFirst : styles.circle}>
-              <Text style={styles.numeroRanking}>{posicaoUsuario}</Text>
-            </View>
-            <View style={styles.infoRanking}>
-              <Text style={filtro === FiltroRanking.Semanal ? styles.nomeRankingFirst : styles.nomeRanking}>
-                {filtro === FiltroRanking.Semanal ? 'Você está no Podium!' : 'Username'}
-              </Text>
-              <Text style={[styles.texto, filtro === FiltroRanking.Semanal ? styles.pontosRankingFirst : styles.pontosRanking]}>
-                {pontosUsuario} pontos
-              </Text>
+          {/* Card do usuário */} 
+          <View style={styles.cardRankingUser}>
+            <View style={filtro === FiltroRanking.Semanal ? styles.bolinhaRankingFirst : styles.bolinhaRanking} />
+            <View style={filtro === FiltroRanking.Semanal ? styles.posicaoRankingUserFirst : styles.posicaoRankingUser}>
+              <View style={styles.bg}>
+                <View style={filtro === FiltroRanking.Semanal ? styles.circleFirst : styles.circle}>
+                  <Text style={styles.numeroRanking}>{posicaoUsuario}</Text>
+                </View>
+                <View style={styles.infoRanking}>
+                  <Text style={filtro === FiltroRanking.Semanal ? styles.nomeRankingFirst : styles.nomeRanking}>
+                    {filtro === FiltroRanking.Semanal ? 'Você está no Podium!' : 'Username'}
+                  </Text>
+                  <Text style={[styles.texto, filtro === FiltroRanking.Semanal ? styles.pontosRankingFirst : styles.pontosRanking]}>
+                    {pontosUsuario} pontos
+                  </Text>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-      </View>
+        </>
+      )}
     </ScrollView>
   );
 }
