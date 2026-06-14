@@ -16,7 +16,7 @@ import { CategoriaHabito, Habito } from '../types';
 import { useApp } from '../context/AppContext';
 import { NotificationService } from '../services/notificationService';
 import HabitCard from '../components/HabitCard';
-import styles from '../style/style';
+import styles, { CORES } from '../style/style';
 
 export default function HabitosScreen() {
   const [nomeHabito, setNomeHabito] = useState<string>('');
@@ -92,6 +92,7 @@ export default function HabitosScreen() {
       <TextInput
         style={styles.input}
         placeholder="Digite seu hábito (ex: beber água)"
+        placeholderTextColor={CORES.textoCinza}
         value={nomeHabito}
         onChangeText={setNomeHabito}
         editable={!carregando}
