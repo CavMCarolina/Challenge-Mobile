@@ -45,14 +45,10 @@ export default function PerfilScreen() {
   }, []);
 
   const confirmarReset = (): void => {
-    Alert.alert(
-      'Resetar pontos',
-      'Seus pontos e hábitos serão zerados. Tem certeza?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        { text: 'Resetar', style: 'destructive', onPress: resetarPontos },
-      ]
-    );
+    Alert.alert('Resetar pontos', 'Seus pontos e hábitos serão zerados. Tem certeza?', [
+      { text: 'Cancelar', style: 'cancel' },
+      { text: 'Resetar', style: 'destructive', onPress: resetarPontos },
+    ]);
   };
 
   const sair = async (): Promise<void> => {

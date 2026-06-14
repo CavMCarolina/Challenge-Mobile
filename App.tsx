@@ -1,7 +1,12 @@
 import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
+import {
+  useFonts,
+  Montserrat_400Regular,
+  Montserrat_500Medium,
+  Montserrat_700Bold,
+} from '@expo-google-fonts/montserrat';
 import { AppProvider } from './context/AppContext';
 import LoginScreen from './screens/LoginScreen';
 import TabNavigator from './navigation/TabNavigation';
@@ -33,11 +38,7 @@ export default function App() {
     <AppProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen
             name="App"
             // Ao entrar, redireciona para a navegação Tab

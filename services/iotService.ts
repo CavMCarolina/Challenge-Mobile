@@ -34,18 +34,18 @@ async function descobrirServidor(): Promise<string | null> {
 
   // Faixas mais prováveis para PCs em DHCP, em lotes de 20
   const faixas = [
-    ...Array.from({ length: 30 }, (_, i) => i + 1),       // .1–.30
-    ...Array.from({ length: 50 }, (_, i) => i + 100),      // .100–.149
-    ...Array.from({ length: 50 }, (_, i) => i + 150),      // .150–.199
-    ...Array.from({ length: 70 }, (_, i) => i + 31),       // .31–.99 e .200–.254
+    ...Array.from({ length: 30 }, (_, i) => i + 1), // .1–.30
+    ...Array.from({ length: 50 }, (_, i) => i + 100), // .100–.149
+    ...Array.from({ length: 50 }, (_, i) => i + 150), // .150–.199
+    ...Array.from({ length: 70 }, (_, i) => i + 31), // .31–.99 e .200–.254
     ...Array.from({ length: 55 }, (_, i) => i + 200),
   ];
 
   const LOTE = 20;
   for (let i = 0; i < faixas.length; i += LOTE) {
     const lote = faixas.slice(i, i + LOTE);
-    const resultados = await Promise.all(lote.map((n) => tentarIP(`${subnet}${n}`)));
-    const encontrado = resultados.find((r) => r !== null);
+    const resultados = await Promise.all(lote.map(n => tentarIP(`${subnet}${n}`)));
+    const encontrado = resultados.find(r => r !== null);
     if (encontrado) return encontrado;
   }
   return null;

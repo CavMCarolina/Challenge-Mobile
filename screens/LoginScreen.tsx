@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { View, Text, TextInput, Alert, Image, TouchableOpacity, Linking, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Alert,
+  Image,
+  TouchableOpacity,
+  Linking,
+  ActivityIndicator,
+} from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StorageService } from '../services/storage';
 import { RootStackParamList } from '../types';
@@ -61,7 +70,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
       </View>
       <View style={styles.contatoLogin}>
         <Text style={styles.texto}>Central de relacionamento</Text>
-        <Text style={styles.negrito} onPress={ligar}>0800 013 2992</Text>
+        <Text style={styles.negrito} onPress={ligar}>
+          0800 013 2992
+        </Text>
       </View>
     </View>
   );

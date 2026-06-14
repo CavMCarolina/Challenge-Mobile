@@ -78,7 +78,7 @@ export default function LojaScreen() {
       {/* Pontos do usuário */}
       <Text style={styles.titulo}>Seus pontos: {pontos}</Text>
 
-      {lojaSaudavel.map((item) => (
+      {lojaSaudavel.map(item => (
         <View key={item.id} style={styles.card}>
           <Text style={styles.subtitulo}>{item.nome}</Text>
           <Text style={styles.texto}>{item.descricao}</Text>

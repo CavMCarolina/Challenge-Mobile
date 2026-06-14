@@ -38,7 +38,7 @@ function gerarDadosSensor() {
   };
 }
 
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   console.log(`[IoT] Dispositivo conectado: ${socket.id}`);
 
   socket.emit('sensor_data', gerarDadosSensor());

@@ -386,7 +386,7 @@ export default StyleSheet.create({
   acoesPerfil: {
     marginTop: 20,
     flex: 1,
-    gap: 12
+    gap: 12,
   },
   botaoPerfil: {
     backgroundColor: CORES.primaria,

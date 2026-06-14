@@ -12,16 +12,20 @@ Notifications.setNotificationHandler({
 
 export const NotificationService = {
   async solicitarPermissao(): Promise<boolean> {
-    const permissaoAtual = await Notifications.getPermissionsAsync() as unknown as { granted: boolean };
+    const permissaoAtual = (await Notifications.getPermissionsAsync()) as unknown as {
+      granted: boolean;
+    };
     if (permissaoAtual.granted) return true;
 
-    const permissao = await Notifications.requestPermissionsAsync() as unknown as { granted: boolean };
+    const permissao = (await Notifications.requestPermissionsAsync()) as unknown as {
+      granted: boolean;
+    };
 
     if (!permissao.granted) {
       Alert.alert(
         'Notificações desativadas',
         'Para receber lembretes de hábitos, ative as notificações nas configurações do dispositivo.',
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
       return false;
     }

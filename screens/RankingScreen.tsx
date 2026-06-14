@@ -80,8 +80,11 @@ export default function RankingScreen() {
           style={[styles.botaoFiltro, filtro === FiltroRanking.Semanal && styles.botaoAtivo]}
           onPress={() => handleFiltro(FiltroRanking.Semanal)}
         >
-          <Text 
-            style={[styles.textoFiltro, filtro === FiltroRanking.Semanal && styles.textoFiltroAtivo]}
+          <Text
+            style={[
+              styles.textoFiltro,
+              filtro === FiltroRanking.Semanal && styles.textoFiltroAtivo,
+            ]}
           >
             Semanal
           </Text>
@@ -110,7 +113,7 @@ export default function RankingScreen() {
       ) : (
         <>
           {/* Lista de ranking */}
-          {listaCompleta.map((item) => (
+          {listaCompleta.map(item => (
             <View key={item.id} style={styles.cardRanking}>
               <View style={[styles.circle, corCircle(item.id)]}>
                 <Text style={styles.numeroRanking}>{item.id}</Text>
@@ -119,26 +122,51 @@ export default function RankingScreen() {
                 <Text style={styles.nomeRanking}>{item.nome}</Text>
                 <Text style={styles.pontosRanking}>{item.pontos} pontos</Text>
               </View>
-              {/* Ícone nos 3 primeiros */} 
+              {/* Ícone nos 3 primeiros */}
               {item.id <= 3 && (
                 <Ionicons name="trophy" size={26} color={CORES.primaria} style={styles.icone} />
               )}
             </View>
           ))}
 
-          {/* Card do usuário */} 
+          {/* Card do usuário */}
           <View style={styles.cardRankingUser}>
-            <View style={filtro === FiltroRanking.Semanal ? styles.bolinhaRankingFirst : styles.bolinhaRanking} />
-            <View style={filtro === FiltroRanking.Semanal ? styles.posicaoRankingUserFirst : styles.posicaoRankingUser}>
+            <View
+              style={
+                filtro === FiltroRanking.Semanal
+                  ? styles.bolinhaRankingFirst
+                  : styles.bolinhaRanking
+              }
+            />
+            <View
+              style={
+                filtro === FiltroRanking.Semanal
+                  ? styles.posicaoRankingUserFirst
+                  : styles.posicaoRankingUser
+              }
+            >
               <View style={styles.bg}>
                 <View style={filtro === FiltroRanking.Semanal ? styles.circleFirst : styles.circle}>
                   <Text style={styles.numeroRanking}>{posicaoUsuario}</Text>
                 </View>
                 <View style={styles.infoRanking}>
-                  <Text style={filtro === FiltroRanking.Semanal ? styles.nomeRankingFirst : styles.nomeRanking}>
+                  <Text
+                    style={
+                      filtro === FiltroRanking.Semanal
+                        ? styles.nomeRankingFirst
+                        : styles.nomeRanking
+                    }
+                  >
                     {filtro === FiltroRanking.Semanal ? 'Você está no Podium!' : 'Username'}
                   </Text>
-                  <Text style={[styles.texto, filtro === FiltroRanking.Semanal ? styles.pontosRankingFirst : styles.pontosRanking]}>
+                  <Text
+                    style={[
+                      styles.texto,
+                      filtro === FiltroRanking.Semanal
+                        ? styles.pontosRankingFirst
+                        : styles.pontosRanking,
+                    ]}
+                  >
                     {pontosUsuario} pontos
                   </Text>
                 </View>

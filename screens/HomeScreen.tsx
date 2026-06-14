@@ -3,13 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../context/AppContext';
 import { iotService } from '../services/iotService';
@@ -43,7 +37,8 @@ const artigos: Artigo[] = [
   {
     id: '4',
     titulo: 'Alimentação balanceada: como montar pratos saudáveis',
-    resumo: 'Entenda como combinar proteínas, carboidratos e vegetais para manter energia e saúde no dia a dia...',
+    resumo:
+      'Entenda como combinar proteínas, carboidratos e vegetais para manter energia e saúde no dia a dia...',
     url: 'https://www.uol.com.br/vivabem/noticias/redacao/2025/11/10/alimentacao-balanceada-como-montar-pratos-saudaveis.htm',
   },
 ];
@@ -106,10 +101,7 @@ export default function HomeScreen() {
         <View style={styles.pontosHome}>
           <Text style={styles.pontosHomeTitulo}>{pontos} PONTOS ACUMULADOS</Text>
           <Text style={styles.texto}>Acesse a loja e troque seus pontos</Text>
-          <TouchableOpacity
-            style={styles.lojaHome}
-            onPress={() => navigation.navigate('Loja')}
-          >
+          <TouchableOpacity style={styles.lojaHome} onPress={() => navigation.navigate('Loja')}>
             <Text style={[styles.texto, styles.link]}>Ir para a loja</Text>
             <Ionicons name="arrow-forward-circle-outline" size={24} color="#017BC8" />
           </TouchableOpacity>
@@ -177,8 +169,18 @@ export default function HomeScreen() {
                 </Text>
                 <Text style={styles.iotMetricaLabel}>Temperatura</Text>
               </View>
-              <View style={[styles.iotMetrica, { backgroundColor: corAtividade(sensorData.nivelAtividade) + '22' }]}>
-                <Text style={[styles.iotMetricaValor, { color: corAtividade(sensorData.nivelAtividade), fontSize: 16 }]}>
+              <View
+                style={[
+                  styles.iotMetrica,
+                  { backgroundColor: corAtividade(sensorData.nivelAtividade) + '22' },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.iotMetricaValor,
+                    { color: corAtividade(sensorData.nivelAtividade), fontSize: 16 },
+                  ]}
+                >
                   ⚡ {sensorData.nivelAtividade}
                 </Text>
                 <Text style={styles.iotMetricaLabel}>Nível de Atividade</Text>
@@ -200,13 +202,11 @@ export default function HomeScreen() {
       {/* Seção de artigos */}
       <Text style={styles.titulo}>Hábitos Saudáveis</Text>
 
-      {artigos.map((item) => (
+      {artigos.map(item => (
         <View key={item.id} style={styles.card}>
           <Text style={styles.subtitulo}>{item.titulo}</Text>
           <Text style={styles.texto}>{item.resumo}</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('WebViewScreen', { url: item.url })}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate('WebViewScreen', { url: item.url })}>
             <Text style={[styles.negrito, styles.link]}>Ler mais...</Text>
           </TouchableOpacity>
         </View>

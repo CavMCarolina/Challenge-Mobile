@@ -34,7 +34,7 @@ export default function HabitosScreen() {
       Alert.alert(
         'Permissão necessária',
         'Para tirar fotos dos seus hábitos, permita o acesso à câmera nas configurações do dispositivo.',
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
       return;
     }
@@ -67,7 +67,7 @@ export default function HabitosScreen() {
         pontos: 30,
       };
 
-            // Adicionar hábito só se tiver foto e input
+      // Adicionar hábito só se tiver foto e input
       await adicionarHabito(novoHabito);
 
       // Notificação push ao adicionar hábito com sucesso
@@ -84,7 +84,9 @@ export default function HabitosScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 100 }}>
       <Text style={styles.titulo}>Hábitos</Text>
-      <Text style={styles.comentario}>Cada hábito vale 30 pontos. Qual hábito gostaria de adicionar?</Text>
+      <Text style={styles.comentario}>
+        Cada hábito vale 30 pontos. Qual hábito gostaria de adicionar?
+      </Text>
 
       {/* Input do hábito */}
       <TextInput
@@ -102,7 +104,7 @@ export default function HabitosScreen() {
           selectedValue={categoria}
           style={{ height: 50, width: '100%', color: '#017BC8', fontSize: 16 }}
           dropdownIconColor="#017BC8"
-          onValueChange={(itemValue) => setCategoria(itemValue as CategoriaHabito)}
+          onValueChange={itemValue => setCategoria(itemValue as CategoriaHabito)}
         >
           <Picker.Item label="Atividade Física" value={CategoriaHabito.AtividadeFisica} />
           <Picker.Item label="Alimentação" value={CategoriaHabito.Alimentacao} />
@@ -146,7 +148,7 @@ export default function HabitosScreen() {
       {/* Lista de hábitos */}
       <FlatList
         data={habitos}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => <HabitCard habito={item} />}
         scrollEnabled={false}
         style={{ marginTop: 20 }}
