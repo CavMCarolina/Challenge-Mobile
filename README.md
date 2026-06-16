@@ -231,6 +231,10 @@ Funcionários de empresas que possuem assinatura de plano de saúde corporativo,
  - [Sprint 3](https://youtu.be/nj-n01m26BE?si=kmSGD-6uenB8D6dj)
  - [Sprint 4](https://youtu.be/8mOGyQvu4x0?is=VRCYl5zV1oNKrOBQ)
 
+## 🔗 Azure Boards
+
+Link de acesso para correção dos testes manuais na matéria de QA. [Clique aqui!](https://dev.azure.com/RM552699/Sprint4_QA)
+
 ## 👥 Integrantes
 
 - Carolina Machado, 552925;
